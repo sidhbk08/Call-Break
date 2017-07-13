@@ -759,15 +759,8 @@ def call(request):
 					x=winner
 					y=[]
 					for series in player.objects.filter(team=myteam).order_by('turn'):
-						y.append(series.id)
-					for i in range(1,5):
-						aftplay=player.objects.get(team=myteam, id=y[x-1])
-						aftplay.turn=i
-						aftplay.save()
-						if x==4:
-							x=1
-						else:
-							x=x+1
+						series.turn=(series.turn-winner+4)%4+1
+						series.save()
 					for cards in card.objects.filter(player__turn=1):
 						cards.active=True
 						cards.save()

@@ -21,3 +21,6 @@ th, td {
     left: 40%;
     z-index: -3;
 }
+a {
+	cursor: pointer;
+}

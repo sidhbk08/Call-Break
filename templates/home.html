@@ -23,8 +23,8 @@
 {% block content %}
   <h2>Welcome, {{ user.get_full_name }} <small>({{ user.username }})</small></h2>
   <p>Your rating is: {{ user.profile.rating }}</p>
-  <input type="checkbox" id="qwert" />
-  <a onclick="return plus_minus()">play online plus minus</a></p>
+  <input type="checkbox" id="qwert" /> for online player tick else not<p>
+  <a onclick="return plus_minus()">play online plus minus</a><p>
   <a href="{% url 'highscore' %}">Highscores</a>
   <a href="{% url 'rules' %}">Rules</a>
 {% endblock %}

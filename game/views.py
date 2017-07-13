@@ -470,7 +470,8 @@ def call(request):
 			if apnaplayer.turn+8==apnaplayer.team.status:
 				myonuser=apnaonuser
 			else:
-				myonuser=player.objects.get(team=apnaplayer.team, turn=apnaplayer.team.status-8).player
+				myplye=player.objects.get(team=apnaplayer.team, turn=apnaplayer.team.status-8)
+				myonuser=myplaye.player
 				carli=[]
 				for acr in card.objects.filter(player__player=myonuser):
 					if acr.card>51:
@@ -478,8 +479,9 @@ def call(request):
 					else:
 						carli.append(acr.card)
 				x=player_call(carli,apnaplayer.team.call_card)
-				if x<2:
-					callcard=2
+				mini=sets.objects.filter(player=myplaye).last().final_sc
+				if x<mini:
+					callcard=mini
 				else:
 					callcard=x
 		elif 12<apnaplayer.team.status<65:

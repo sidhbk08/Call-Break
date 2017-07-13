@@ -647,7 +647,7 @@ def call(request):
 				calledcard.save()
 				cardison=[]
 				cardonrange=[]
-				for cards in cardon.objects.filter(team=myteam):
+				for cards in cardon.objects.filter(team=myteam).order_by('-id'):
 					cardison.append(cards.cardon)
 					cardonrange.append((cards.cardon)//13)
 				if turn==1:

@@ -751,7 +751,7 @@ def call(request):
 						for cards in cardison:
 							if wincard<cards<(cardonrange[0]+1)*13:
 								wincard=cards
-					winner=cardison.index(wincard)
+					winner=cardison.index(wincard)+1
 					winplayer=player.objects.get(team=myteam, turn=winner)
 					winset=sets.objects.filter(player=winplayer).last()
 					winset.current_sc=winset.current_sc+1

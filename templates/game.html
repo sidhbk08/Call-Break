@@ -246,7 +246,7 @@ $(document).ready(function () {
 				url: '/call/',
 				dataType: 'json',
 				success: function (data) {
-						document.getElementById("extra").innerHTML = data.card;
+						document.getElementById("extra").innerHTML = data.call;
 						document.getElementById("gamecontent").innerHTML = '<button onclick="shuffle()">shuffle the cards</button><button onclick="start()">distribute them</button>';
 					}
 			});

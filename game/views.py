@@ -647,7 +647,7 @@ def call(request):
 				calledcard.save()
 				cardison=[]
 				cardonrange=[]
-				for cards in cardon.objects.filter(team=myteam).order_by('-id'):
+				for cards in cardon.objects.filter(team=myteam):
 					cardison.append(cards.cardon)
 					cardonrange.append((cards.cardon)//13)
 				if turn==1:
@@ -751,7 +751,7 @@ def call(request):
 						for cards in cardison:
 							if wincard<cards<(cardonrange[0]+1)*13:
 								wincard=cards
-					winner=cardison.index(wincard)+1
+					winner=4-cardison.index(wincard)
 					winplayer=player.objects.get(team=myteam, turn=winner)
 					winset=sets.objects.filter(player=winplayer).last()
 					winset.current_sc=winset.current_sc+1

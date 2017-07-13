@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{% url 'home' %}">home</a><br />
+<center><h2><u>High Scores</u></h2></center><p>
+<div class="col-lg-3 col-md-2 col-sm-1 col-xs-0"></div>
+<div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+<table class="table table-hover">
+    <tr><th>Rank</th><th>Username</th><th>Ratings</th><tr>
+    {% for field in hslist %}
+        <!--{% if user == field.user %}
+        <tr><td>{{ forloop.counter }}</td><td>{{ field.user.username }}</td><td>{{ field.rating }}</td><tr>
+        {% else %}
+        <tr><td>{{ forloop.counter }}</td><td>{{ field.user.username }}</td><td>{{ field.rating }}</td><tr>
+        {% endif %}-->
+        <tr><td>{{ forloop.counter }}</td><td>{{ field.user.username }}</td><td>{{ field.rating }}</td><tr>
+    {% endfor %}
+</table>
+</div>
+{% endblock %}

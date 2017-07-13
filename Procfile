@@ -1,0 +1,1 @@
+web: gunicorn plus_minus.wsgi --log-file -

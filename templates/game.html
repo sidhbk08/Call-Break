@@ -1,0 +1,322 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<script>
+	var change=1;
+	var callca='$("#inputval").val()';
+$(document).ready(function () {
+		turnfunc=setInterval(myturn, 3000);
+		eval($("#inputval").hide());
+	});
+		function myturn() {
+			$.ajax({
+              	data: {
+                	'change': change
+            	},
+				url: '/myturn/',
+            	dataType: 'json',
+				success: function (data) {
+					if(parseInt(data.change)==1) {
+						if(parseInt(data.change)==1 || parseInt(data.status)==0 || parseInt(data.status)==9 || parseInt(data.status)==13 || parseInt(data.status)==65) {
+							document.getElementById("turnlist").innerHTML = '<tr><th>username</th><th>score</th><th>turn</th></tr>';
+							for(i=0;i<4;i++) {
+								if(data.turnlist[i][2]==data.turn) {
+									$('#turnlist').append('<tr><td><i>'+data.turnlist[i][0]+'</i></td><td><i>'+data.turnlist[i][1]+'</i></td><td><i>'+data.turnlist[i][2]+'</i></td></tr>');
+								}
+								else {
+									$('#turnlist').append('<tr><td>'+data.turnlist[i][0]+'</td><td>'+data.turnlist[i][1]+'</td><td>'+data.turnlist[i][2]+'</td></tr>');
+								}
+							}
+
+							document.getElementById("pointstally").innerHTML='<tr><th>'+data.turnlist[0][0]+'</th><th>'+data.turnlist[1][0]+'</th><th>'+data.turnlist[2][0]+'</th><th>'+data.turnlist[3][0]+'</th></tr>';
+							for(i=0;i<data.callscore[0].length;i++) {
+								$("#pointstally").append('<tr><td>'+data.callscore[0][i]+'</td><td>'+data.callscore[1][i]+'</td><td>'+data.callscore[2][i]+'</td><td>'+data.callscore[3][i]+'</td></tr>');
+							}
+						}
+						if((parseInt(data.status)==1 || parseInt(data.change)==1 || parseInt(data.status)==5 || parseInt(data.status)==9) && data.card!=undefined) {
+							document.getElementById("maingame").innerHTML = "";
+							for(i=0;i<data.card.length;i++) {
+								if(parseInt(data.card[i])<52) {
+									card=data.card[i];
+								}
+								else {
+									card=parseInt(data.card[i])-52;
+								}
+									$("#maingame").append('<button value="'+data.card[i]+'" class="cardbut" id="'+data.card[i]+'" disabled><img src="../static/cards/'+card+'.png" /></button>');
+							}
+						}
+						if((parseInt(data.change)==1 && parseInt(data.status)>9) || parseInt(data.status)==9 || parseInt(data.status)==5 || parseInt(data.status)==1) {
+							document.getElementById("callcard").innerHTML='<img src="../static/cards/suit'+data.call_card+'.png" />';
+						}
+
+
+
+						if(parseInt(data.status)==0) {
+							if(parseInt(data.turn)==4) {
+								document.getElementById("gamecontent").innerHTML = '<button onclick="shuffle()">shuffle the cards</button>';
+							}
+							else {
+								document.getElementById("gamecontent").innerHTML = 'wait for shuffling the cards';
+								if(parseInt(data.trumpuser)==1) {
+									document.getElementById("nextbutton").innerHTML='<button onclick="nextres()">get next player response</button>';
+								}
+							}
+						}
+						else if(0<parseInt(data.status) && parseInt(data.status)<5) {
+							if(parseInt(data.turn)<parseInt(data.status)) {
+								if(parseInt(data.last)==0) {
+									document.getElementById("gamecontent").innerHTML = 'card has distributed and wait for someones call and for you next call 10';
+								}
+								else {
+									document.getElementById("gamecontent").innerHTML = 'wait for your turn current called value '+data.c_call+' by <i>'+data.last+'</i>';
+								}
+								if(parseInt(data.trumpuser)==1) {
+									document.getElementById("nextbutton").innerHTML='<button onclick="nextres()">get next player response</button>';
+								}
+							}
+							else if(parseInt(data.turn)==parseInt(data.status)) {
+								if(parseInt(data.last)==0) {
+									document.getElementById("gamecontent").innerHTML = 'you wanna go for call of value '+ data.call;
+								}
+								else {
+									document.getElementById("gamecontent").innerHTML = 'you wanna go for call of value '+ data.call +' and current called value '+data.c_call+' by <i>'+data.last+'</i>';
+								}
+									eval($("#inputval").show());
+									document.getElementById("inputval").innerHTML = '<option value="5" selected="selected">no call</option><option value="3">flower</option><option value="4">tile</option><option value="2">heart</option></option><option value="1">spade</option>';
+									document.getElementById("nextbutton").innerHTML = '<button onclick="next()">next</button>';
+							}
+							else {
+								if(parseInt(data.last)==0) {
+									document.getElementById("gamecontent").innerHTML = 'card has distributed and wait for call';
+
+								}
+								else {
+									document.getElementById("gamecontent").innerHTML = 'card has distributed and wait for your turn current called value '+data.c_call+' by <i>'+data.last+'</i>';
+								}
+								if(parseInt(data.trumpuser)==1) {
+									document.getElementById("nextbutton").innerHTML='<button onclick="nextres()">get next player response</button>';
+								}
+							}
+						}
+						else if(4<parseInt(data.status) && parseInt(data.status)<9) {
+							if(parseInt(data.turn)+4<parseInt(data.status)) {
+								if(parseInt(data.last)==0) {
+									document.getElementById("gamecontent").innerHTML = 'wait for someones call and wait for your turn to play the game';
+								}
+								else {
+									document.getElementById("gamecontent").innerHTML = 'wait for your turn to play current called value '+data.c_call+' by <i>'+data.last+'</i>';
+								}
+								if(parseInt(data.trumpuser)==1) {
+									document.getElementById("nextbutton").innerHTML='<button onclick="nextres()">get next player response</button>';
+								}
+							}
+							else if(parseInt(data.turn)+4==parseInt(data.status)) {
+								if(parseInt(data.last)==0) {
+									document.getElementById("gamecontent").innerHTML = 'you wanna go for call of value '+ data.call;
+								}
+								else {
+									document.getElementById("gamecontent").innerHTML = 'you wanna go for call of value '+ data.call +' and current called value '+data.c_call+' by <i>'+data.last+'</i>';
+								}
+									eval($("#inputval").show());
+									document.getElementById("inputval").innerHTML = '<option value="5" selected="selected">no call</option><option value="3">flower</option><option value="4">tile</option><option value="2">heart</option></option><option value="1">spade</option></select>';
+									document.getElementById("nextbutton").innerHTML = '<button onclick="next()">next</button>';
+							}
+							else {
+								if(parseInt(data.last)==0) {
+									document.getElementById("gamecontent").innerHTML = 'wait for call';
+								}
+								else {
+									document.getElementById("gamecontent").innerHTML = 'wait for your turn current called value '+data.c_call+' by <i>'+data.last+'</i>';
+								}
+								if(parseInt(data.trumpuser)==1) {
+									document.getElementById("nextbutton").innerHTML='<button onclick="nextres()">get next player response</button>';
+								}
+							}
+						}
+						else if(8<parseInt(data.status) && parseInt(data.status)<13) {
+							if(parseInt(data.turn)+8<parseInt(data.status)) {
+								document.getElementById("gamecontent").innerHTML = 'wait for others call and wait for your turn to play the game';
+								if(parseInt(data.trumpuser)==1) {
+									document.getElementById("nextbutton").innerHTML='<button onclick="nextres()">get next player response</button>';
+								}
+							}
+							else if(parseInt(data.turn)+8==parseInt(data.status)) {
+								document.getElementById("gamecontent").innerHTML = 'you have to go for call of value which you can make <br />';
+								$("#inputval").show();
+								document.getElementById("inputval").innerHTML = '';
+								for(i=data.m_score;i<14;i++) {
+									$("#inputval").append('<option value="'+i+'">'+i+'</option>');
+								}
+								document.getElementById("nextbutton").innerHTML = '<button onclick="next()">next</button>';
+							}
+							else {
+								document.getElementById("gamecontent").innerHTML = 'wait for call';
+								if(parseInt(data.trumpuser)==1) {
+									document.getElementById("nextbutton").innerHTML='<button onclick="nextres()">get next player response</button>';
+								}
+							}
+						}
+						else if(12<parseInt(data.status) && parseInt(data.status)<=64) {
+							document.getElementById("thisgame").innerHTML = "";
+							for(i=0;i<data.cardison.length;i++) {
+								if (data.cardison[i]<52) {
+									card=data.cardison[i];
+								}
+								else {
+									card=parseInt(data.cardison[i])-52;
+								}
+								$("#thisgame").append('<img src="../static/cards/'+card+'.png" />');
+							}
+							if(parseInt(data.turn)<parseInt(data.status)%4) {
+								document.getElementById("gamecontent").innerHTML = 'wait for next turn';
+								if(parseInt(data.trumpuser)==1) {
+									document.getElementById("nextbutton").innerHTML='<button onclick="nextres()">get next player response</button>';
+								}
+							}
+							else if((parseInt(data.status)-parseInt(data.turn))%4==0) {
+								for(i=0;i<data.activecard.length;i++) {
+									$("#"+data.activecard[i]).prop("disabled",false);
+								}
+								document.getElementById("gamecontent").innerHTML = 'start your turn';
+							}
+							else {
+								document.getElementById("gamecontent").innerHTML = 'wait for turn';
+								if(parseInt(data.trumpuser)==1) {
+									document.getElementById("nextbutton").innerHTML='<button onclick="nextres()">get next player response</button>';
+								}
+							}
+						}
+						else if(64<parseInt(data.status) && parseInt(data.status)<=68) {
+								document.getElementById("thisgame").innerHTML ='';
+							if(parseInt(data.turn)<parseInt(data.status)%4) {
+								document.getElementById("gamecontent").innerHTML = 'wait for others response';
+								if(parseInt(data.trumpuser)==1) {
+									document.getElementById("gamecontent").innerHTML='<button value="1" class="cardbut" id="1">play more</button><button value="0" class="cardbut" id="0">exit game</button>';
+								}
+							}
+							else if((parseInt(data.status)-parseInt(data.turn))%4==0) {
+								document.getElementById("gamecontent").innerHTML = '<button value="1" class="cardbut" id="1">play more</button><button value="0" class="cardbut" id="0">exit game</button>';
+							}
+							else {
+								document.getElementById("gamecontent").innerHTML = 'wait for your response turn';
+								if(parseInt(data.trumpuser)==1) {
+									document.getElementById("nextbutton").innerHTML='<button value="1" class="cardbut" id="1">play more</button><button value="0" class="cardbut" id="0">exit game</button>';
+								}
+							}
+						}
+						else if(parseInt(data.status)==69) {
+							clearInterval(turnfunc);
+							document.getElementById("nextstate").innerHTML = '';
+							document.getElementById("thisgame").innerHTML = '';
+							document.getElementById("maingame").innerHTML = '';
+							document.getElementById("callcard").innerHTML = '';
+							document.getElementById("gamecontent").innerHTML = 'your game is over by'+data.carddistibutor+'<br /><a href="/gooff/" id="0">quit game</a>';
+						}
+						change=0;
+								$(".cardbut").click(function(){
+									$(".cardbut").prop("disabled",true);
+									var callcard=$(this).val();
+									$(this).remove();
+									$.ajax({
+										data: {
+											'callcard': callcard
+										},
+										url: '/call/',
+						            	dataType: 'json',
+										success: function (data) {
+												document.getElementById("extra").innerHTML = data.call;
+											}
+									});
+								});
+					}
+					else {
+						console.log("koi ni change");
+					}
+				}
+			});
+		}
+		function shuffle() {
+			document.getElementById("extra").innerHTML = '';
+			document.getElementById("gamecontent").innerHTML = '';
+			callcard=0;
+			$.ajax({
+				data: {
+					'callcard': callcard
+				},
+				url: '/call/',
+				dataType: 'json',
+				success: function (data) {
+						document.getElementById("extra").innerHTML = data.card;
+						document.getElementById("gamecontent").innerHTML = '<button onclick="shuffle()">shuffle the cards</button><button onclick="start()">distribute them</button>';
+					}
+			});
+		}
+		function start() {
+			document.getElementById("extra").innerHTML = '';
+			document.getElementById("gamecontent").innerHTML = '';
+			callcard=1;
+			$.ajax({
+				data: {
+					'callcard': callcard
+				},
+				url: '/call/',
+				dataType: 'json',
+				success: function (data) {
+						document.getElementById("extra").innerHTML = data.call;
+					}
+			});
+		}
+		function nextres() {
+			document.getElementById("extra").innerHTML = '';
+			document.getElementById("gamecontent").innerHTML = '';
+			document.getElementById("nextbutton").innerHTML = '';
+			$.ajax({
+				url: '/call/',
+				success: function (data) {
+						document.getElementById("extra").innerHTML = data.call;
+					}
+			});
+		}
+		function next() {
+			document.getElementById("extra").innerHTML = '';
+			document.getElementById("gamecontent").innerHTML = '';
+			document.getElementById("nextbutton").innerHTML = '';
+			var callcard=eval(callca);
+			document.getElementById("inputval").innerHTML = '';
+			$("#inputval").hide();
+			$.ajax({
+				data: {
+					'callcard': callcard
+				},
+				url: '/call/',
+            	dataType: 'json',
+				success: function (data) {
+						document.getElementById("extra").innerHTML = data.call;
+					}
+			});
+		}
+	</script>
+{% endblock %}
+
+{% block content %}
+	<p>
+		<div>
+			<div>
+				go <a href='/gooff/'>offline</a><br />
+				i'm {{ user.username }}<br />
+			</div>
+			<div id="callcard">
+			</div>
+			<div class="container">
+				<div class="col-lg-5 col-md-5 col-sm-5"><table id="turnlist" class="table table-hover"></table></div>
+				<div class=" col-lg-2 col-md-2 col-sm-2"></div>
+				<div class="col-lg-5 col-md-5 col-sm-5"><table id="pointstally" class="table table-hover"></table></div>
+			</div>
+			<div id="gamecontent"></div>
+			<div id="nextstate"><select id="inputval"></select><span id="nextbutton"></span></div>
+			<div id="thisgame"></div>
+			<div id="maingame"></div>
+			<div id="extra"></div>
+		</div>
+	</p>
+{% endblock %}

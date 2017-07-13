@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<script>
+	function abcd() {
+		$.ajax({
+			url: '/waitreq/',
+			success: function (data) {
+				if(data.list!=0) {
+					document.getElementById("gort").innerHTML = data.list;
+				}
+				else {
+					location.reload();
+				}
+			}
+		});
+	}
+	window.onload=setInterval(abcd, 1000);
+	window.onbeforeunload = function() {
+		console.log("sda");
+		$.ajax({
+			url: '/bhagu/',
+        	async : false
+		});
+		console.log("sda");
+	}
+</script>
+{% endblock %}
+
+{% block content %}
+	<a href='/gooff/'>go offline</a><br />
+	Wait for {{ list }} to come online game<div id="gort"></div>
+{% endblock %}

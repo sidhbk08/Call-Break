@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <script>
+    $(document).ready(function () {
+         $("#id_username").change(function () {
+            var username = $("#id_username").val();
+            if(username!='') {
+                $.ajax({
+                      data: {
+                        'username': username
+                    },
+                    url: '/ajax/validate_username/',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.is_taken) {
+                            $("#userver").css("color", "red");
+                            document.getElementById("userver").innerHTML = "username already exist!";
+                        }
+                        else {
+                            $("#userver").css("color", "green");
+                            document.getElementById("userver").innerHTML = "username is different";
+                        }
+                    }
+                });
+            }
+            else {
+                $("#userver").css("color", "red");
+                document.getElementById("userver").innerHTML = "username not be empty";
+            }
+        });
+     });
+    </script>
+{% endblock %}
+{% block content %}
+    <h2>Sign up</h2>
+    <form method="post">
+        {% csrf_token %}
+        <p id="userver"></p>
+        {% for field in form %}
+        <p>
+            {{ field.label_tag }}<br>
+            {{ field }}
+            {% if field.help_text %}
+            <small style="color: grey">{{ field.help_text }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+            {% endfor %}
+        </p>
+        {% endfor %}
+        <button type="submit">Sign up</button>
+    </form>
+{% endblock %}

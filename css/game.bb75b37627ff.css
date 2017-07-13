@@ -1,0 +1,23 @@
+select, button {
+	color: white;
+}
+.cardbut {
+	margin: 0px;
+	padding: 4px;
+	border: 1px;
+	border-radius: 20px;
+	width: 7%;
+}
+img {
+	height: 300px;
+}
+th, td {
+	text-align: center;
+}
+#callcard {
+    width: 40%;
+    height: 20%;
+    position: absolute;
+    left: 40%;
+    z-index: -3;
+}

@@ -546,15 +546,14 @@ def call(request):
 				myteam.call_card=callcard
 				myteam.status=myteam.status+1
 				myteam.save()
-				for nextplayer in player.objects.filter(team=myteam)[i]:
+				for nextplayer in player.objects.filter(team=myteam):
 					nextplayer.state=True
 					nextplayer.save()
 				data = {'call' : 'your call is successfully applied and wait for your turn'}
 			else:
 				myteam.status=myteam.status+1
 				myteam.save()
-				for i in range(0,4):
-					nextplayer=player.objects.filter(team=myteam)[i]
+				for nextplayer in player.objects.filter(team=myteam):
 					nextplayer.state=True
 					nextplayer.save()
 				data = {'call' : 'you have not applied for call and wait for your turn'}
@@ -581,12 +580,12 @@ def call(request):
 						cards.save()
 					myteam.status=13
 					myteam.save()
-					for i in range(0,4):
-						if candid[i].player==myteam.call_player:
-							newset=sets(player=candid[i], final_sc=myteam.call_amount)
+					for candi in candid:
+						if candi.player==myteam.call_player:
+							newset=sets(player=candi, final_sc=myteam.call_amount)
 							newset.save()
 						else:
-							newset=sets(player=candid[i], final_sc=0)
+							newset=sets(player=candi, final_sc=0)
 							newset.save()
 					called=player.objects.get(player=myteam.call_player).turn
 					for finalplayer in player.objects.filter(team=myteam).order_by('turn'):
@@ -596,27 +595,26 @@ def call(request):
 						cards.active=True
 						cards.save()
 				elif myteam.call_amount>=5:
-					for i in range(0,4):
-						if candid[i].player==myteam.call_player:
-							newset=sets(player=candid[i], final_sc=myteam.call_amount)
+					for candi in candid:
+						if candi.player==myteam.call_player:
+							newset=sets(player=candi, final_sc=myteam.call_amount)
 							newset.save()
 						else:
-							newset=sets(player=candid[i], final_sc=2)
+							newset=sets(player=candi, final_sc=2)
 							newset.save()
 					called=player.objects.get(player=myteam.call_player).turn
 					for finalplayer in player.objects.filter(team=myteam).order_by('turn'):
 						finalplayer.turn=(4+finalplayer.turn-called)%4+1
 						finalplayer.save()
 				else:
-					for i in range(0,4):
-						newset=sets(player=candid[i], final_sc=2)
+					for candi in candid:
+						newset=sets(player=candi, final_sc=2)
 						newset.save()
 				for i in card.objects.filter(player__team=myteam):
 					if 13*(myteam.call_card-1)<=i.card<13*myteam.call_card:
 						i.card=i.card+52
 						i.save()
-			for i in range(0,4):
-				nextplayer=player.objects.filter(team=myteam)[i]
+			for nextplayer in player.objects.filter(team=myteam):
 				nextplayer.state=True
 				nextplayer.save()
 		elif turn+8==myteam.status:

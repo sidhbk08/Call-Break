@@ -427,7 +427,7 @@ def player_call(carlist, trumpc):
 def call(request):
 	myuser=request.user
 	myonuser = None
-	callcard = 100
+	callcard = 1000
 	if Onuser.objects.filter(user=myuser, online=False).exists():
 		apnaonuser = Onuser.objects.get(user=myuser, online=False)
 		apnaplayer = player.objects.get(player=apnaonuser)
@@ -497,7 +497,7 @@ def call(request):
 	else:
 		myonuser = Onuser.objects.get(user=myuser)
 	if player.objects.filter(player=myonuser).exists():
-		if callcard == 100:
+		if callcard == 1000:
 			callcard = request.GET.get('callcard')
 			callcard = int(callcard)
 		myteam = player.objects.get(player=myonuser).team

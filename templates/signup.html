@@ -2,34 +2,27 @@
 
 {% block head %}
     <script>
-    $(document).ready(function () {
-         $("#id_username").change(function () {
-            var username = $("#id_username").val();
-            if(username!='') {
-                $.ajax({
-                      data: {
-                        'username': username
-                    },
-                    url: '/ajax/validate_username/',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data.is_taken) {
-                            $("#userver").css("color", "red");
-                            document.getElementById("userver").innerHTML = "username already exist!";
-                        }
-                        else {
-                            $("#userver").css("color", "green");
-                            document.getElementById("userver").innerHTML = "username is different";
-                        }
-                    }
-                });
-            }
-            else {
-                $("#userver").css("color", "red");
-                document.getElementById("userver").innerHTML = "username not be empty";
+    function validuser() {
+        var username = $("#id_username").val();
+        $.ajax({
+              data: {
+                'username': username
+            },
+            url: '/ajax/validate_username/',
+            dataType: 'json',
+            success: function (data) {
+                if (data.is_taken) {
+                    $("#userver").css("color", "red");
+                    document.getElementById("userver").innerHTML = "username already exist!";
+                }
+                else {
+                    $("#userver").css("color", "green");
+                    document.getElementById("userver").innerHTML = "username is different";
+                }
             }
         });
-     });
+    }
+    window.onload=setInterval(validuser, 100)
     </script>
 {% endblock %}
 {% block content %}

@@ -6,7 +6,7 @@
 		$.ajax({
 			url: '/waitreq/',
 			success: function (data) {
-				if(data.list!=0) {
+				if(parseInt(data.list)!=0 && data.list!=undefined) {
 					document.getElementById("gort").innerHTML = data.list;
 				}
 				else {

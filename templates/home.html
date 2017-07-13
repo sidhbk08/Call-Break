@@ -2,8 +2,8 @@
 
 {% block head %}
 <script>
-  function plus_minus() {
-    val=$('#qwert').is(':checked');
+	function plus_minus() {
+		val=$('#qwert').is(':checked');
         $.ajax({
             data: {
                     'name': val // from form
@@ -11,12 +11,12 @@
             url:"/plus_minus/",
             dataType : 'json',
             success: function(data){
-              if(parseInt(data.values)==1) {
-                  location.reload();
-              }
+             	if(parseInt(data.values)==1) {
+                	location.reload();
+             	}
              }
         });
-  }
+	}
 </script>
 {% endblock %}
 

@@ -75,7 +75,7 @@ class Migration(migrations.Migration):
                 ('call_card', models.IntegerField(default=1)),
                 ('call_amount', models.IntegerField(default=4)),
                 ('call_player', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='call_players', to='game.Onuser')),
-                ('carddistibutor', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='carddistibutors', to='game.Onuser')),
+                ('carddistibutor', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AddField(

@@ -519,8 +519,7 @@ def call(request):
 					if card.objects.filter(player__player=myonuser).exists()==False:
 						random.shuffle(car)
 						cards=car
-						for i in range(0,4):
-							candidate=player.objects.filter(team=myteam)[4-i-1]
+						for i,candidate in zip(range(0,4),player.objects.filter(team=myteam)):
 							for j in range(0,13):
 								card(player=candidate, card=cards[13*i+j]).save()
 						myteam.status=1

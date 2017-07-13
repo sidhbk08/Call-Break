@@ -190,18 +190,15 @@ $(document).ready(function () {
 								document.getElementById("thisgame").innerHTML ='';
 							if(parseInt(data.turn)<parseInt(data.status)%4) {
 								document.getElementById("gamecontent").innerHTML = 'wait for others response';
-								if(parseInt(data.trumpuser)==1) {
-									document.getElementById("gamecontent").innerHTML='<button value="1" class="cardbut" id="1">play more</button><button value="0" class="cardbut" id="0">exit game</button>';
-								}
 							}
 							else if((parseInt(data.status)-parseInt(data.turn))%4==0) {
 								document.getElementById("gamecontent").innerHTML = '<button value="1" class="cardbut" id="1">play more</button><button value="0" class="cardbut" id="0">exit game</button>';
 							}
 							else {
 								document.getElementById("gamecontent").innerHTML = 'wait for your response turn';
-								if(parseInt(data.trumpuser)==1) {
-									document.getElementById("nextbutton").innerHTML='<button value="1" class="cardbut" id="1">play more</button><button value="0" class="cardbut" id="0">exit game</button>';
-								}
+							}
+							if(parseInt(data.trumpuser)==1) {
+								document.getElementById("gamecontent").innerHTML='<button value="1" class="cardbut" id="1">play more</button><button value="0" class="cardbut" id="0">exit game</button>';
 							}
 						}
 						else if(parseInt(data.status)==69) {

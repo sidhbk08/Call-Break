@@ -546,8 +546,7 @@ def call(request):
 				myteam.call_card=callcard
 				myteam.status=myteam.status+1
 				myteam.save()
-				for i in range(0,4):
-					nextplayer=player.objects.filter(team=myteam)[i]
+				for nextplayer in player.objects.filter(team=myteam)[i]:
 					nextplayer.state=True
 					nextplayer.save()
 				data = {'call' : 'your call is successfully applied and wait for your turn'}

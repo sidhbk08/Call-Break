@@ -358,7 +358,7 @@ def myturn(request):
 			for car in cardon.objects.filter(team=myteam):
 				cardison.append(car.cardon)
 			activecard=[]
-			for car in card.objects.filter(player__player__user=request.user, active=True):
+			for car in card.objects.filter(player__player=myonuser, active=True):
 				activecard.append(car.card)
 			data = {'change' : 1, 'trumpuser' : trumpuser, 'status' : status, 'turn' : turn, 'card' : cards, 'c_call' : c_call, 'last' : last, 'callscore' : callscore, 'm_score' : m_score, 'turnlist' : turnlist, 'cardison' : cardison, 'activecard' : activecard, 'call_card' : call_card}
 		elif 65<=status<=68:
@@ -632,7 +632,7 @@ def call(request):
 					cards.active=True
 					cards.save()
 		elif (myteam.status-turn)%4==0 and myteam.status<65:
-			if card.objects.filter(player__player__user=request.user, card=callcard, active=True).exists()==True:
+			if card.objects.filter(player__player=myonuser, card=callcard, active=True).exists()==True:
 				for cards in card.objects.filter(player__player=myonuser):
 					if cards.card==callcard:
 						cards.delete()
@@ -774,7 +774,7 @@ def call(request):
 					data = {'call' : 'your card is successfully applied'}
 				if myteam.status==65:
 					finalset=sets.objects.filter(player__team=myteam)
-					y=player.objects.get(player__user=myteam.carddistibutor).turn
+					y=player.objects.get(player=myteam.carddistibutor).turn
 					for finalplayer in player.objects.filter(team=myteam).order_by('turn'):
 						fset=finalset.filter(player=finalplayer).last()
 						if fset.final_sc==0:

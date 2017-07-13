@@ -385,13 +385,13 @@ def cal(carlist):
 		if len(dicti[i])>4:
 			for j in range(1,5):
 				if i==j:
-					for carz in dicti[i]:
+					for carz in dicti[j]:
 						if carz>9:
 							count+=1
 						elif carz>7:
 							count+=.5
 				else:
-					for carz in dicti[i]:
+					for carz in dicti[j]:
 						if carz>10:
 							count+=1
 						elif carz>8:
@@ -473,10 +473,7 @@ def call(request):
 				myonuser=player.objects.get(team=apnaplayer.team, turn=apnaplayer.team.status-8).player
 				carli=[]
 				for acr in card.objects.filter(player__player=myonuser):
-					if acr.card>51:
-						carli.append(acr.card-52)
-					else:
-						carli.append(acr.card)
+					carli.append(acr.card%52)
 				x=player_call(carli,apnaplayer.team.call_card)
 				if x<2:
 					callcard=2

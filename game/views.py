@@ -115,9 +115,9 @@ def gooff(request):
 		teamstatus=player.objects.filter(player__user=myuser)[0].team.status
 		if 12<teamstatus<69:
 			guiltyuser=Profile.objects.get(user=myuser)
-			y=90
+			y=10
 			if onlus:
-				y=95
+				y=5
 			guiltyuser.rating=(guiltyuser.rating*y)/100;
 			guiltyuser.save()
 		if teamstatus<69:
@@ -198,7 +198,7 @@ def start_game(request):
 				distriplayer.save()
 				return render(request,'game.html')
 		else:
-			return None
+			return render('plus_minus')
 	else:
 		return redirect('home')
 

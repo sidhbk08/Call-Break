@@ -66,16 +66,27 @@ def validate_username(request):
 	return JsonResponse(data)
 
 def rules(request):
-	myuser=request.user
-	if Onuser.objects.filter(user=myuser).exists():
-		return redirect('plus_minus')
+	if request.user.is_authenticated():
+		myuser=request.user
+		if Onuser.objects.filter(user=myuser).exists():
+			return redirect('plus_minus')
+		else:
+			return render(request, 'rules.html')
 	else:
 		return render(request, 'rules.html')
 
 def highscore(request):
-	myuser=request.user
-	if Onuser.objects.filter(user=myuser).exists():
-		return redirect('plus_minus')
+	if request.user.is_authenticated():
+		myuser=request.user
+		if Onuser.objects.filter(user=myuser).exists():
+			return redirect('plus_minus')
+		else:
+			hslist = Profile.objects.filter().order_by('-rating')[:]
+			template = loader.get_template('high.html')
+			context = {
+				'hslist': hslist,
+			}
+			return HttpResponse(template.render(context, request))
 	else:
 		hslist = Profile.objects.filter().order_by('-rating')[:]
 		template = loader.get_template('high.html')

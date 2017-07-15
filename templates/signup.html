@@ -2,7 +2,10 @@
 
 {% block head %}
     <script>
-    window.onload=$("#id_username").change(function() {
+    window.onload = function() {
+        addEvent(document.getElementById('id_username'), 'change', myChangeFunction);
+    }
+    function myChangeFunction() {
         var username = $("#id_username").val();
         $.ajax({
               data: {
@@ -21,7 +24,7 @@
                 }
             }
         });
-    });
+    }
     </script>
 {% endblock %}
 {% block content %}

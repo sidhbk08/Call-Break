@@ -1,15 +1,13 @@
 select, button, input {
 	color: white;
 	background-color: #4d0404;
-}
-select, input {
 	border: none;
 	padding: 5px 5px;
 }
 .cardbut {
 	margin: 0px;
 	padding: 4px;
-	border: 1px;
+	border: 2px;
 	border-radius: 20px;
 	width: 7%;
 }

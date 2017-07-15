@@ -1,3 +1,6 @@
+body {
+	color: purple;
+}
 select, button {
 	color: white;
 	background-color: #166f16;
@@ -32,4 +35,11 @@ th, td {
 }
 a {
 	cursor: pointer;
+	color: green;
+}
+small {
+	color: #65ad65;
+}
+h2 {
+	color : #166f16;
 }

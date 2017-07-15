@@ -1,5 +1,5 @@
 body {
-	color: purple;
+	color: green;
 }
 select, button {
 	color: white;
@@ -35,7 +35,7 @@ th, td {
 }
 a {
 	cursor: pointer;
-	color: green;
+	color: purple;
 }
 small {
 	color: #65ad65;

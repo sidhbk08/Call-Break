@@ -2,7 +2,7 @@
 
 {% block head %}
     <script>
-    function validuser() {
+    window.onload=$("#id_username").change(function() {
         var username = $("#id_username").val();
         $.ajax({
               data: {
@@ -21,8 +21,7 @@
                 }
             }
         });
-    }
-    window.onload=setInterval(validuser, 100)
+    });
     </script>
 {% endblock %}
 {% block content %}

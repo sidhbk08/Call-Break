@@ -45,7 +45,7 @@ $(document).ready(function () {
 									$("#maingame").append('<button value="'+data.card[i]+'" class="cardbut" id="'+data.card[i]+'" disabled><img src="../static/cards/'+card+'.png" /></button>');
 							}
 						}
-						if((parseInt(data.change)==1 && parseInt(data.status)>9) || parseInt(data.status)==9 || parseInt(data.status)==5 || parseInt(data.status)==1) {
+						if((parseInt(data.change)==1 && parseInt(data.status)>9 && parseInt(data.status)<65) || parseInt(data.status)==9 || parseInt(data.status)==5 || parseInt(data.status)==1) {
 							document.getElementById("callcard").innerHTML='<img src="../static/cards/suit'+data.call_card+'.png" />';
 						}
 
@@ -187,7 +187,8 @@ $(document).ready(function () {
 							}
 						}
 						else if(64<parseInt(data.status) && parseInt(data.status)<=68) {
-								document.getElementById("thisgame").innerHTML ='';
+							document.getElementById("callcard").innerHTML='';
+							document.getElementById("thisgame").innerHTML ='';
 							if(parseInt(data.turn)<parseInt(data.status)%4) {
 								document.getElementById("gamecontent").innerHTML = 'wait for others response';
 							}

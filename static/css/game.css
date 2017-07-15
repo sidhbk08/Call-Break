@@ -4,6 +4,12 @@ select, button, input {
 	border: none;
 	padding: 5px 5px;
 }
+input {
+	background-color: white;
+	color: black;
+	border: black solid 2px;
+	text-align: center;
+}
 .cardbut {
 	margin: 0px;
 	padding: 4px;

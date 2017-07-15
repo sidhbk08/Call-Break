@@ -1,13 +1,13 @@
-select, button, input {
+select, button {
 	color: white;
-	background-color: #4d0404;
+	background-color: green;
 	border: none;
 	padding: 5px 5px;
 }
 input {
 	background-color: white;
-	color: black;
-	border: black solid 2px;
+	color: green;
+	border: green solid 2px;
 	text-align: center;
 }
 .cardbut {

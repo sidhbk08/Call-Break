@@ -138,7 +138,7 @@ def gooff(request):
 							finalonuser=finalplayer.filter(score=ratescore[-i])[j].player
 							if (onlus and finalonuser.online==False) or onlus==False:
 								finaluserrating=Profile.objects.get(user=finalonuser.user)
-								finaluserrating.rating=(finaluserrating.rating*(100-ver)+ver*5*decimal.Decimal(9+x-2*i)/8)/10
+								finaluserrating.rating=(finaluserrating.rating*(100-ver)+ver*5*decimal.Decimal(9+x-2*i)/8)/100
 								finaluserrating.save()
 						x=1
 				for j in range(0,x):
@@ -146,7 +146,7 @@ def gooff(request):
 					finalonuser=finalplayer.filter(score=ratescore[0])[j].player
 					if (onlus and finalonuser.online==False) or onlus==False:
 						finaluserrating=Profile.objects.get(user=finalonuser.user)
-						finaluserrating.rating=(finaluserrating.rating*(100-ver)+ver*5*decimal.Decimal(9+x-2*i)/8)/10
+						finaluserrating.rating=(finaluserrating.rating*(100-ver)+ver*5*decimal.Decimal(9+x-2*i)/8)/100
 						finaluserrating.save()
 			myteam.status=69
 			myteam.save()

@@ -76,10 +76,10 @@ $(document).ready(function () {
 							}
 							else if(parseInt(data.turn)==parseInt(data.status)) {
 								if(parseInt(data.last)==0) {
-									document.getElementById("gamecontent").innerHTML = 'you wanna go for call of value '+ data.call;
+									document.getElementById("gamecontent").innerHTML = 'you wanna go for call of value <i>'+ data.call+'</i>';
 								}
 								else {
-									document.getElementById("gamecontent").innerHTML = 'you wanna go for call of value '+ data.call +' and current called value '+data.c_call+' by <i>'+data.last+'</i>';
+									document.getElementById("gamecontent").innerHTML = 'you wanna go for call of value <i>'+ data.call +'</i> and current called value <i>'+data.c_call+'</i> by <i>'+data.last+'</i>';
 								}
 									eval($("#inputval").show());
 									document.getElementById("inputval").innerHTML = '<option value="5" selected="selected">no call</option><option value="3">flower</option><option value="4">tile</option><option value="2">heart</option></option><option value="1">spade</option>';
@@ -91,7 +91,7 @@ $(document).ready(function () {
 
 								}
 								else {
-									document.getElementById("gamecontent").innerHTML = 'card has distributed and wait for your turn current called value '+data.c_call+' by <i>'+data.last+'</i>';
+									document.getElementById("gamecontent").innerHTML = 'card has distributed and wait for your turn current called value <i>'+data.c_call+'</i> by <i>'+data.last+'</i>';
 								}
 								if(parseInt(data.trumpuser)==1) {
 									document.getElementById("nextbutton").innerHTML='<button onclick="nextres()">get next player response</button>';
@@ -104,7 +104,7 @@ $(document).ready(function () {
 									document.getElementById("gamecontent").innerHTML = 'wait for someones call and wait for your turn to play the game';
 								}
 								else {
-									document.getElementById("gamecontent").innerHTML = 'wait for your turn to play current called value '+data.c_call+' by <i>'+data.last+'</i>';
+									document.getElementById("gamecontent").innerHTML = 'wait for your turn to play current called value <i>'+data.c_call+'</i> by <i>'+data.last+'</i>';
 								}
 								if(parseInt(data.trumpuser)==1) {
 									document.getElementById("nextbutton").innerHTML='<button onclick="nextres()">get next player response</button>';
@@ -112,10 +112,10 @@ $(document).ready(function () {
 							}
 							else if(parseInt(data.turn)+4==parseInt(data.status)) {
 								if(parseInt(data.last)==0) {
-									document.getElementById("gamecontent").innerHTML = 'you wanna go for call of value '+ data.call;
+									document.getElementById("gamecontent").innerHTML = 'you wanna go for call of value <i>'+ data.call+'</i>';
 								}
 								else {
-									document.getElementById("gamecontent").innerHTML = 'you wanna go for call of value '+ data.call +' and current called value '+data.c_call+' by <i>'+data.last+'</i>';
+									document.getElementById("gamecontent").innerHTML = 'you wanna go for call of value <i>'+ data.call +'</i> and current called value <i>'+data.c_call+'</i> by <i>'+data.last+'</i>';
 								}
 									eval($("#inputval").show());
 									document.getElementById("inputval").innerHTML = '<option value="5" selected="selected">no call</option><option value="3">flower</option><option value="4">tile</option><option value="2">heart</option></option><option value="1">spade</option></select>';
@@ -208,7 +208,7 @@ $(document).ready(function () {
 							document.getElementById("thisgame").innerHTML = '';
 							document.getElementById("maingame").innerHTML = '';
 							document.getElementById("callcard").innerHTML = '';
-							document.getElementById("gamecontent").innerHTML = 'your game is over by'+data.carddistibutor+'<br /><a href="/gooff/" id="0">quit game</a>';
+							document.getElementById("gamecontent").innerHTML = 'your game is over by <i>'+data.carddistibutor+'</i><br /><a href="/gooff/" id="0">quit game</a>';
 						}
 						change=0;
 								$(".cardbut").click(function(){

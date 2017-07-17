@@ -52,7 +52,6 @@ $(document).ready(function () {
 
 
 						if(parseInt(data.status)==0) {
-							document.getElementById("thisgame").innerHTML = '';
 							if(parseInt(data.turn)==4) {
 								document.getElementById("gamecontent").innerHTML = '<button onclick="shuffle()">shuffle the cards</button>';
 							}
@@ -167,6 +166,9 @@ $(document).ready(function () {
 									card=parseInt(data.cardison[i])-52;
 								}
 								$("#thisgame").append('<img src="../static/cards/'+card+'.png" />');
+							}
+							if(parseInt(data.status)%4==0) {
+								document.getElementById("thisgame").innerHTML = '';
 							}
 							if(parseInt(data.turn)<parseInt(data.status)%4) {
 								document.getElementById("gamecontent").innerHTML = 'wait for next turn';

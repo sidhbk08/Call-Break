@@ -113,7 +113,7 @@ def gooff(request):
 		ver=5
 	if player.objects.filter(player__user=myuser).exists()==True:
 		teamstatus=player.objects.filter(player__user=myuser)[0].team.status
-		if 12<teamstatus<69:
+		if 12<teamstatus<65:
 			guiltyuser=Profile.objects.get(user=myuser)
 			y=90
 			if onlus:

@@ -457,7 +457,7 @@ def call(request):
 				for acr in card.objects.filter(player__player=myonuser):
 					carli.append(acr.card)
 				x=cal(carli)
-				if x[0]>apnaplayer.team.call_amount:
+				if x[0]>apnaplayer.team.call_amount+1:
 					callcard=int(x[1])
 				else:
 					callcard=0
@@ -503,7 +503,7 @@ def call(request):
 			apniteam=apnaplayer.team
 			apniteam.status=68
 			apniteam.save()
-			myonuser=player.objects.get(team=apniteam, turn=4).player
+			myonuser=player.objects.get(team=apniteam, turn=1).player
 			onlus=True
 	else:
 		myonuser = Onuser.objects.get(user=myuser)

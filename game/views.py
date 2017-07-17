@@ -108,7 +108,7 @@ def gooff(request):
 	myuser=request.user
 	onlus=False
 	ver=10
-	if Onuser.objects.filter(user=myuser, online=False).exists:
+	if Onuser.objects.filter(user=myuser, online=False).exists():
 		onlus=True
 		ver=5
 	if player.objects.filter(player__user=myuser).exists()==True:

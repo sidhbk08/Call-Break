@@ -115,9 +115,9 @@ def gooff(request):
 		teamstatus=player.objects.filter(player__user=myuser)[0].team.status
 		if 12<teamstatus<69:
 			guiltyuser=Profile.objects.get(user=myuser)
-			y=10
+			y=90
 			if onlus:
-				y=5
+				y=95
 			guiltyuser.rating=(guiltyuser.rating*y)/100;
 			guiltyuser.save()
 		if teamstatus<69:

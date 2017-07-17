@@ -52,6 +52,7 @@ $(document).ready(function () {
 
 
 						if(parseInt(data.status)==0) {
+							document.getElementById("thisgame").innerHTML = '';
 							if(parseInt(data.turn)==4) {
 								document.getElementById("gamecontent").innerHTML = '<button onclick="shuffle()">shuffle the cards</button>';
 							}

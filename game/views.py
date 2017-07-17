@@ -457,7 +457,7 @@ def call(request):
 				for acr in card.objects.filter(player__player=myonuser):
 					carli.append(acr.card)
 				x=cal(carli)
-				if x[0]>apnaplayer.team.call_amount+1:
+				if x[0]>=apnaplayer.team.call_amount+1:
 					callcard=int(x[1])
 				else:
 					callcard=0

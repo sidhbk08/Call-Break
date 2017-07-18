@@ -441,6 +441,7 @@ def call(request):
 	callcard = 1000
 	onlus = False
 	if Onuser.objects.filter(user=myuser, online=False).exists():
+		onlus=True
 		apnaonuser = Onuser.objects.get(user=myuser, online=False)
 		apnaplayer = player.objects.get(player=apnaonuser)
 		if apnaplayer.team.status==0:
@@ -505,7 +506,6 @@ def call(request):
 			apniteam.status=68
 			apniteam.save()
 			myonuser=player.objects.get(team=apniteam, turn=4).player
-			onlus=True
 	else:
 		myonuser = Onuser.objects.get(user=myuser)
 	if player.objects.filter(player=myonuser).exists():
@@ -844,6 +844,7 @@ def call(request):
 							finaluserrating.save()
 				myteam.status=69
 				myteam.carddistibutor=myonuser
+				myteam.save()
 				data = {'call' : 'you refused to play the game more'}
 				for nextplayer in player.objects.filter(team=myteam):
 					nextplayer.state=True

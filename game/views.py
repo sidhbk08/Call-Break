@@ -503,7 +503,7 @@ def call(request):
 			apniteam=apnaplayer.team
 			apniteam.status=68
 			apniteam.save()
-			myonuser=player.objects.get(team=apniteam, turn=1).player
+			myonuser=player.objects.get(team=apniteam, turn=4).player
 			onlus=True
 	else:
 		myonuser = Onuser.objects.get(user=myuser)

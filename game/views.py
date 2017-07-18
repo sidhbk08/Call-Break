@@ -439,6 +439,7 @@ def call(request):
 	myuser=request.user
 	myonuser = None
 	callcard = 1000
+	onlus = False
 	if Onuser.objects.filter(user=myuser, online=False).exists():
 		apnaonuser = Onuser.objects.get(user=myuser, online=False)
 		apnaplayer = player.objects.get(player=apnaonuser)

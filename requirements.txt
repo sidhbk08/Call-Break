@@ -4,4 +4,4 @@ Django==1.10
 psycopg2
 static3
 whitenoise
-gunicorn==19.7.1
+gunicorn==23.0.0
